@@ -1,0 +1,98 @@
+@startuml Modelo Cycle
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+    class Cast {
+        List Actors
+    }
+
+    Cast --> Actor : has a \nlist of
+
+    class Actor {}
+
+    class Score {
+        __init__()
+        add_points()
+    }
+
+    class Snake {
+        __init__()
+        get_segments()
+        move_next()
+        get_head()
+        grow_tail()
+        turn_head()
+        _prepare_body()
+        get_dead()
+        set_dead()
+    }
+
+    Actor <-- Score: is\nderived\nfrom
+    Actor <-- Snake: is\nderived\nfrom
+
+    class Director {}
+
+    Actor --right--> Point: uses
+    Actor --left--> Color: uses
+
+    class Script {
+        List Actions
+    }
+
+    class Action {}
+
+    Script --> Action : has a \nlist of 
+
+    class ControlActorsAction {}
+    class DrawActorsAction {}
+    class HandleCollisionsAction {}
+    class MoveActorsAction {}
+
+    Action <-- ControlActorsAction: is\nderived\nfrom
+    Action <-- DrawActorsAction: is\nderived\nfrom
+    Action <-- HandleCollisionsAction: is\nderived\nfrom
+    Action <-- MoveActorsAction: is\nderived\nfrom
+
+    class KeyboardService {}
+    class VideoService {}
+
+    HandleCollisionsAction --> Actor: uses
+    
+    DrawActorsAction --> VideoService: uses
+    
+
+    DrawActorsAction --> Cast: uses
+    Director --> Script: uses
+    Director --> VideoService: controls
+    Director --> Cast: directs
+    ControlActorsAction --> KeyboardService: uses
+
+    class RedSnake {
+        __init__()
+        grow_tail()
+        _prepare_body()
+    }
+
+    class GreenSnake {
+        __init__()
+        grow_tail()
+        _prepare_body()
+    }
+
+    Snake <-- RedSnake: is\nderived\nfrom
+    Snake <-- GreenSnake: is\nderived\nfrom
+
+    class RedScore {
+        __init__()
+        add_points()
+        }
+
+    class GreenScore {
+        __init__()
+        add_points()
+    }
+
+    Score <-- RedScore: is\nderived\nfrom
+    Score <-- GreenScore: is\nderived\nfrom
+
+@enduml
