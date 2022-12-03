@@ -12,6 +12,7 @@ root                    (project root folder)
   +-- game              (specific game classes)
     +--- casting
     +--- directing
+    +--- scripting
     +--- services
     +--- shared
   +-- __main__.py       (entry point for program)
